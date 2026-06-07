@@ -83,6 +83,13 @@ export class InsightIndex {
     return this.skillIndex.size;
   }
 
+  /** Total number of insight records (not unique skills). */
+  total(): number {
+    let n = 0;
+    for (const list of this.index.values()) n += list.length;
+    return n;
+  }
+
   keywords(): string[] {
     return [...this.index.keys()];
   }
