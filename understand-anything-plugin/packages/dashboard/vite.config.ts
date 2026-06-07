@@ -8,8 +8,19 @@ import crypto from "crypto";
 
 // Generate a one-time token when the server process starts.
 // This token is printed to the terminal and must be in the URL
-// to fetch knowledge-graph.json or diff-overlay.json.
+// Access token for the dashboard data endpoints. Must match the ?token= query string.
 const ACCESS_TOKEN = process.env.UNDERSTAND_ACCESS_TOKEN || crypto.randomBytes(16).toString("hex");
+
+// Persist the resolved token to a tmp file so the launcher can print the
+// access URL even when stdout is captured by a background process manager.
+try {
+  fs.writeFileSync(
+    "/tmp/understand-dashboard-token.txt",
+    ACCESS_TOKEN + "\n",
+  );
+} catch {
+  // best-effort; ignore
+}
 const MAX_SOURCE_FILE_BYTES = 1024 * 1024;
 
 function graphFileCandidates(fileName: string): string[] {
@@ -24,7 +35,17 @@ function graphFileCandidates(fileName: string): string[] {
 }
 
 function findGraphFile(fileName: string): string | null {
-  return graphFileCandidates(fileName).find((candidate) => fs.existsSync(candidate)) ?? null;
+  const candidate = graphFileCandidates(fileName).find((c) => fs.existsSync(c)) ?? null;
+  if (!candidate) return null;
+  // Resolve symlinks so the project root derives from the *real* file
+  // location. Without this, a symlinked graph at `dashboard/.understand-anything/`
+  // would yield the dashboard package as projectRoot and every file path
+  // look-up would 404.
+  try {
+    return fs.realpathSync(candidate);
+  } catch {
+    return candidate;
+  }
 }
 
 function projectRootFromGraphFile(candidate: string): string {
