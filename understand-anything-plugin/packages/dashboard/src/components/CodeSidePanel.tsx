@@ -55,9 +55,13 @@ export default function CodeSidePanel() {
       return;
     }
     setState({ kind: "loading" });
+    // The access token is read from the URL on first load and then moved
+    // to sessionStorage (the URL is stripped). Fall back to that storage
+    // here so the side panel keeps working after the redirect.
     const token =
       typeof window !== "undefined"
-        ? new URLSearchParams(window.location.search).get("token")
+        ? new URLSearchParams(window.location.search).get("token") ??
+          sessionStorage.getItem("understand-anything-token")
         : null;
     const url = `/file-content.json?token=${encodeURIComponent(token ?? "")}&path=${encodeURIComponent(filePath)}`;
     fetch(url)
