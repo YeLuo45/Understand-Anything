@@ -26,10 +26,7 @@ import type { GraphNode } from "@understand-anything/core/types";
 // Re-export so callers can `import { FeaturePoint } from "..."`
 export type { FeaturePoint, ExtractedFeature } from "../types/featurePoints";
 
-// ---------------------------------------------------------------------------
-// Public entry
-// ---------------------------------------------------------------------------
-
+type Strategy = "layer-cluster" | "tag-cluster" | "import-cluster";
 /** Tunable knobs for the extractor. */
 export interface ExtractorOptions {
   /** Minimum number of nodes required to form a feature. */

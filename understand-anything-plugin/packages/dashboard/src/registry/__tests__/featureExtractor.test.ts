@@ -25,8 +25,17 @@ function makeNode(id: string, tags: string[] = [], layer?: string) {
 
 function makeGraph(opts: {
   nodes?: ReturnType<typeof makeNode>[];
-  layers?: { id: string; name: string; nodeIds: string[]; description?: string }[];
-  edges?: { source: string; target: string; type: string }[];
+  layers?: Array<{
+    id: string;
+    name: string;
+    nodeIds: string[];
+    description?: string;
+  }>;
+  edges?: Array<{
+    source: string;
+    target: string;
+    type: string;
+  }>;
 }): KnowledgeGraph {
   return {
     version: "1.0.0",
@@ -39,9 +48,9 @@ function makeGraph(opts: {
       analyzedAt: "2026-06-07T00:00:00Z",
       gitCommitHash: "abc",
     },
-    nodes: opts.nodes ?? [],
-    edges: opts.edges ?? [],
-    layers: opts.layers ?? [],
+    nodes: (opts.nodes ?? []) as unknown as KnowledgeGraph["nodes"],
+    edges: (opts.edges ?? []) as unknown as KnowledgeGraph["edges"],
+    layers: (opts.layers ?? []) as unknown as KnowledgeGraph["layers"],
     tour: [],
   };
 }
