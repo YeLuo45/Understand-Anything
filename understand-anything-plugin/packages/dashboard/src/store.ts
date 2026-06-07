@@ -9,7 +9,7 @@ import type {
 } from "@understand-anything/core/types";
 import type { ReactFlowInstance } from "@xyflow/react";
 
-export type Persona = "non-technical" | "junior" | "experienced";
+export type Persona = "non-technical" | "junior" | "experienced" | "uiLearn";
 export type NavigationLevel = "overview" | "layer-detail";
 export type NodeType = "file" | "function" | "class" | "module" | "concept" | "config" | "document" | "service" | "table" | "endpoint" | "pipeline" | "schema" | "resource" | "domain" | "flow" | "step" | "article" | "entity" | "topic" | "claim" | "source";
 export type Complexity = "simple" | "moderate" | "complex";
@@ -237,6 +237,27 @@ interface DashboardStore {
   layoutIssues: GraphIssue[];
   appendLayoutIssues: (issues: GraphIssue[]) => void;
   clearLayoutIssues: () => void;
+
+  // ---------------------------------------------------------------------
+  // UI Learn (Direction B) — feature point explorer
+  // ---------------------------------------------------------------------
+
+  /** Currently selected feature point id (null = feature list view). */
+  selectedFeatureId: string | null;
+  /** Active diagram style for the open feature point. */
+  diagramViewMode: "sequence" | "flowchart";
+  /** Free-text search query for the feature list. */
+  featureSearchQuery: string;
+  /** Node id of the file currently shown in the code side-panel (V12). */
+  codePanelNodeId: string | null;
+  /** True while the code side-panel is visible. */
+  codePanelOpen: boolean;
+
+  selectFeature: (featureId: string | null) => void;
+  setDiagramViewMode: (mode: "sequence" | "flowchart") => void;
+  setFeatureSearchQuery: (query: string) => void;
+  openCodePanel: (nodeId: string) => void;
+  closeCodePanel: () => void;
 }
 
 function getSortedTour(graph: KnowledgeGraph): TourStep[] {
@@ -390,6 +411,11 @@ export const useDashboardStore = create<DashboardStore>()((set, get) => ({
       containerSizeMemory: new Map(),
       stage1Tick: 0,
       layoutIssues: [],
+      // UI Learn reset on graph swap
+      selectedFeatureId: null,
+      featureSearchQuery: "",
+      codePanelNodeId: null,
+      codePanelOpen: false,
     });
   },
 
@@ -780,5 +806,17 @@ export const useDashboardStore = create<DashboardStore>()((set, get) => ({
       return { layoutIssues: [...state.layoutIssues, ...fresh] };
     }),
   clearLayoutIssues: () => set({ layoutIssues: [] }),
+
+  // UI Learn (Direction B) state
+  selectedFeatureId: null,
+  diagramViewMode: "sequence",
+  featureSearchQuery: "",
+  codePanelNodeId: null,
+  codePanelOpen: false,
+  selectFeature: (featureId) => set({ selectedFeatureId: featureId }),
+  setDiagramViewMode: (mode) => set({ diagramViewMode: mode }),
+  setFeatureSearchQuery: (query) => set({ featureSearchQuery: query }),
+  openCodePanel: (nodeId) => set({ codePanelNodeId: nodeId, codePanelOpen: true }),
+  closeCodePanel: () => set({ codePanelOpen: false }),
 }));
 
