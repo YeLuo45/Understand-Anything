@@ -18,6 +18,7 @@ import {
 } from "../registry/featureExtractor";
 import { buildFeaturePointRegistry } from "../registry/featurePointRegistry";
 import type { FeaturePoint } from "../types/featurePoints";
+import { HERMES_AGENT_SHOWCASE_FEATURES } from "../data/hermesAgentShowcase";
 import FeatureList from "./FeatureList";
 import FeatureDetailPanel from "./FeatureDetailPanel";
 
@@ -66,10 +67,13 @@ export default function UILearnView() {
   }, [graph]);
 
   const registry = useMemo(() => {
-    if (loadState.kind !== "ready") {
-      return buildFeaturePointRegistry([] as readonly FeaturePoint[]);
-    }
-    return buildFeaturePointRegistry(loadState.features);
+    const auto =
+      loadState.kind === "ready" ? loadState.features : ([] as readonly FeaturePoint[]);
+    const merged: readonly FeaturePoint[] = [
+      ...HERMES_AGENT_SHOWCASE_FEATURES,
+      ...auto,
+    ];
+    return buildFeaturePointRegistry(merged);
   }, [loadState]);
 
   const filtered = useMemo(() => {
