@@ -65,6 +65,18 @@ describe("Migrator — registration", () => {
   });
 });
 
+describe("Migrator — path", () => {
+  it("returns path starting with from version", () => {
+    const m = new Migrator();
+    expect(m.path("0.5.0")[0]).toBe("0.5.0");
+  });
+
+  it("supported returns versions array", () => {
+    const m = new Migrator();
+    expect(Array.isArray(m.supported())).toBe(true);
+  });
+});
+
 describe("Migrator — builtin migrations", () => {
   it("0.8.0 → 0.9.0 migration exists", () => {
     expect(BUILTIN_MIGRATIONS["0.8.0"]).toBeDefined();

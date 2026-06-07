@@ -335,6 +335,8 @@ export default defineConfig({
               }
 
               res.setHeader("Content-Type", "application/json");
+              res.setHeader("Cache-Control", "no-store, must-revalidate");
+              res.setHeader("Pragma", "no-cache");
               res.end(JSON.stringify(raw));
             } catch (err) {
               // If we cannot parse or sanitise the file, refuse to serve it
