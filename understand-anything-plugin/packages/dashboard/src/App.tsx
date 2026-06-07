@@ -28,6 +28,7 @@ import { I18nProvider, useI18n } from "./contexts/I18nContext.tsx";
 // Lazy-load heavy / optional components so they ship in separate chunks.
 const CodeViewer = lazy(() => import("./components/CodeViewer"));
 const LearnPanel = lazy(() => import("./components/LearnPanel"));
+const UILearnView = lazy(() => import("./components/UILearnView"));
 const PathFinderModal = lazy(() => import("./components/PathFinderModal"));
 const KeyboardShortcutsHelp = lazy(
   () => import("./components/KeyboardShortcutsHelp"),
@@ -635,7 +636,11 @@ function DashboardContent({
       <div className="flex-1 flex min-h-0 relative">
         {/* Graph area */}
         <div className="flex-1 min-w-0 min-h-0 relative">
-          {viewMode === "knowledge" ? (
+          {persona === "uiLearn" ? (
+            <Suspense fallback={null}>
+              <UILearnView />
+            </Suspense>
+          ) : viewMode === "knowledge" ? (
             <KnowledgeGraphView />
           ) : viewMode === "domain" && domainGraph ? (
             <DomainGraphView />

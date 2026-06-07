@@ -23,6 +23,11 @@ export default function PersonaSelector() {
       label: t.personaSelector.deepDive,
       description: t.personaSelector.deepDiveDesc,
     },
+    {
+      id: "uiLearn",
+      label: t.personaSelector.uiLearn,
+      description: t.personaSelector.uiLearnDesc,
+    },
   ];
 
   return (
