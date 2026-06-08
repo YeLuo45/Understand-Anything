@@ -137,6 +137,57 @@ Understand Anything 是一个 [Claude Code Plugin](https://code.claude.com/docs/
 
 打开交互式网页数据看板，您的代码库将以图表形式呈现 — 按架构层级进行颜色编码，支持搜索和点击。选择任意节点即可查看其代码、关系以及简明易懂的解释。
 
+#### 3.1 手动启动 Dashboard（开发模式）
+
+如果 `/understand-dashboard` 不可用，或你希望自定义端口、Token、subpath 部署，可以直接启动 Vite dev server：
+
+```bash
+cd /home/hermes/projects/Understand-Anything/understand-anything-plugin/packages/dashboard
+
+# 基础启动（默认 127.0.0.1:5180,Token 写到 /tmp/understand-dashboard-token.txt）
+GITHUB_PAGES_BASE=/Understand-Anything/ npm run dev
+
+# 访问链接（端口 + Token 取决于启动输出）
+http://127.0.0.1:5180/?token=<32字符十六进制Token>
+```
+
+常用环境变量：
+- `GITHUB_PAGES_BASE=/<repo>/` — 设置资源子路径,GH Pages 部署时必需
+- `UNDERSTAND_ACCESS_TOKEN=<hex>` — 手动指定 Token,跳过自动生成
+- `VITE_DEMO_MODE=true` — 跳过 Token 校验,使用 VITE_GRAPH_URL 注入的 demo 数据
+
+#### 3.2 部署到 GitHub Pages（生产模式）
+
+构建 `dist/` 并推送到 `gh-pages` 分支,Github Pages 会自动服务:
+
+```bash
+# 1. 构建生产 bundle
+cd /home/hermes/projects/Understand-Anything/understand-anything-plugin/packages/dashboard
+GITHUB_PAGES_BASE=/Understand-Anything/ npm run build
+
+# 2. 创建 gh-pages worktree 并部署
+cd /home/hermes/projects/Understand-Anything
+git worktree add -B gh-pages /tmp/ua-gh-pages origin/main
+cd /tmp/ua-gh-pages
+git rm -rf --quiet .
+cp -r /home/hermes/projects/Understand-Anything/understand-anything-plugin/packages/dashboard/dist/. .
+touch .nojekyll
+git add -A
+git -c user.name="Your Name" -c user.email="you@example.com" \
+  commit -m "deploy: dashboard build from main"
+git push --force-with-lease origin gh-pages
+git worktree remove /tmp/ua-gh-pages --force
+
+# 3. 启用 GitHub Pages（Settings → Pages → Branch: gh-pages,Path: /）
+#    或一次性启用：gh api repos/<owner>/<repo>/pages -X POST \
+#      -f 'source[branch]=gh-pages' -f 'source[path]=/'
+
+# 4. 访问生产链接
+https://<owner>.github.io/Understand-Anything/?token=<任意32字符>
+```
+
+注意：生产构建中 Token 仅作为 client-side 占位符（`knowledge-graph.json` 是静态文件,任何 Token 都会被接受），所以公网链接里的 `?token=` 参数值可以随便填。
+
 ### 4. 深度使用
 
 ```bash
