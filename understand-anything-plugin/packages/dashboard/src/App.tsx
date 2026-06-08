@@ -60,7 +60,10 @@ function dataUrl(fileName: string, token: string | null): string {
     const url = envMap[fileName];
     if (url) return url;
   }
-  const path = `/${fileName}`;
+  // Strip leading slashes so BASE_URL subpath (e.g. /Understand-Anything/)
+  // is applied correctly — otherwise we hit the GitHub Pages 404 fallback.
+  const cleanName = fileName.replace(/^\/+/, "");
+  const path = `${import.meta.env.BASE_URL}${cleanName}`;
   return token ? `${path}?token=${encodeURIComponent(token)}` : path;
 }
 
