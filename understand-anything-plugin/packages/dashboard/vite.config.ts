@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
@@ -197,7 +197,33 @@ function readSourceFile(url: URL) {
   };
 }
 
+// GITHUB_PAGES_BASE sets the asset base path for GitHub Pages subpath
+// deployments (e.g. https://<user>.github.io/<repo>/). Defaults to
+// `/<repo>/` derived from the git remote, falling back to `/`.
+function resolveBase(): string {
+  const envBase = process.env.GITHUB_PAGES_BASE;
+  if (envBase) return envBase.endsWith("/") ? envBase : envBase + "/";
+  try {
+    const { execSync } = require("child_process") as typeof import("child_process");
+    const remote = execSync("git config --get remote.origin.url", {
+      stdio: ["ignore", "pipe", "ignore"],
+    })
+      .toString()
+      .trim();
+    const m = remote.match(/[:/]([^/]+?)(?:\.git)?$/);
+    if (m && remote.includes("github.com")) {
+      return `/${m[1]}/`;
+    }
+  } catch {
+    // best-effort
+  }
+  return "/";
+}
+
 export default defineConfig({
+  // GitHub Pages subpath: assets resolve to /<repo>/assets/* instead of /assets/*
+  base: resolveBase(),
+
   test: {
     environment: "node",
     include: ["src/**/__tests__/**/*.test.ts"],
