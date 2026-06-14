@@ -5,6 +5,7 @@
  * Record: status, context, decision, consequences, alternatives, tags, links.
  */
 import { useDashboardStore } from "../store";
+import { extractWhyStory } from "@understand-anything/core/llm/why-story";
 import type { ArchitectureDecisionRecord } from "@understand-anything/core/types";
 
 export default function DecisionDetailPanel() {
@@ -17,6 +18,9 @@ export default function DecisionDetailPanel() {
     return <EmptyHero />;
   }
 
+  // V9 — Why Story (LLM-generated plain-English retelling)
+  const story = extractWhyStory(decision);
+
   return (
     <article
       className="max-w-2xl space-y-3 p-3 md:p-4"
@@ -24,6 +28,7 @@ export default function DecisionDetailPanel() {
     >
       <h1 className="text-lg font-heading">{decision.title}</h1>
       <Meta decision={decision} />
+      {story && <StoryBlock story={story} />}
       <Section title="Context">{decision.context || "(no context)"}</Section>
       <Section title="Decision">{decision.decision}</Section>
       <Section title="Consequences">
@@ -156,6 +161,36 @@ function Alternatives({
         </li>
       ))}
     </ul>
+  );
+}
+
+function StoryBlock({
+  story,
+}: {
+  story: { story: string; takeaways: string[]; tags: string[] };
+}) {
+  return (
+    <section
+      className="rounded-md bg-elevated/40 border-l-2 border-accent/70 px-3 py-2"
+      data-testid="why-story-block"
+    >
+      <h3 className="text-[10px] uppercase tracking-wider text-accent mb-1">
+        Why this code? (1-paragraph retelling)
+      </h3>
+      <p className="text-sm text-text-primary leading-relaxed italic mb-2">
+        {story.story}
+      </p>
+      {story.takeaways.length > 0 && (
+        <ul className="text-xs space-y-0.5" data-testid="why-story-takeaways">
+          {story.takeaways.map((t, i) => (
+            <li key={i} className="flex gap-1.5">
+              <span className="text-accent shrink-0">›</span>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 

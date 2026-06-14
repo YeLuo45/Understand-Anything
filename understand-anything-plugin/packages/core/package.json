@@ -21,6 +21,26 @@
       "types": "./dist/schema.d.ts",
       "default": "./dist/schema.js"
     },
+    "./llm/llm-client": {
+      "types": "./dist/llm/llm-client.d.ts",
+      "default": "./dist/llm/llm-client.js"
+    },
+    "./llm/anthropic-provider": {
+      "types": "./dist/llm/anthropic-provider.d.ts",
+      "default": "./dist/llm/anthropic-provider.js"
+    },
+    "./llm/openai-provider": {
+      "types": "./dist/llm/openai-provider.d.ts",
+      "default": "./dist/llm/openai-provider.js"
+    },
+    "./llm/ollama-provider": {
+      "types": "./dist/llm/ollama-provider.d.ts",
+      "default": "./dist/llm/ollama-provider.js"
+    },
+    "./llm/why-story": {
+      "types": "./dist/llm/why-story.d.ts",
+      "default": "./dist/llm/why-story.js"
+    },
     "./languages": {
       "types": "./dist/languages/index.d.ts",
       "default": "./dist/languages/index.js"

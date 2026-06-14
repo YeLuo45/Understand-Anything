@@ -180,3 +180,13 @@ export {
 export { AnthropicProvider, type AnthropicProviderConfig } from "./llm/anthropic-provider.js";
 export { OpenAIProvider, type OpenAIProviderConfig } from "./llm/openai-provider.js";
 export { OllamaProvider, type OllamaProviderConfig } from "./llm/ollama-provider.js";
+export {
+  buildWhyStoryPrompt,
+  parseWhyStory,
+  mergeWhyStory,
+  extractWhyStory,
+  generateWhyStory,
+  WhyStoryCache,
+  WhyStorySchema,
+  type WhyStory,
+} from "./llm/why-story.js";
