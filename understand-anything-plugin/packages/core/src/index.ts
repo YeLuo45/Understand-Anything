@@ -161,3 +161,22 @@ export {
   type LLMSummarizeInput,
   type LLMSummarizeOutput,
 } from "./analyzer/llm-decision-summarizer.js";
+
+// LLM client (Direction A R2 — V1/V2/V3/V4)
+export {
+  LLMError,
+  classifyStatus,
+  parseRetryAfter,
+  chatWithRetry,
+  generateStructured,
+  sleep,
+  type ChatMessage,
+  type ChatOptions,
+  type ChatCompletion,
+  type LLMProvider,
+  type LLMErrorKind,
+  type RetryOptions,
+} from "./llm/llm-client.js";
+export { AnthropicProvider, type AnthropicProviderConfig } from "./llm/anthropic-provider.js";
+export { OpenAIProvider, type OpenAIProviderConfig } from "./llm/openai-provider.js";
+export { OllamaProvider, type OllamaProviderConfig } from "./llm/ollama-provider.js";
