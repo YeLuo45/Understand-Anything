@@ -79,6 +79,8 @@ export const en = {
     deepDiveDesc: "Code-focused with chat",
     uiLearn: "UI Learn",
     uiLearnDesc: "Interactive feature-point explorer",
+    architect: "Architect",
+    architectDesc: "Why-mode: see decisions, tradeoffs, and ADR rationale",
   },
   uiLearn: {
     title: "UI Learn",

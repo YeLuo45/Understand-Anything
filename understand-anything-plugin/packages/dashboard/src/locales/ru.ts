@@ -79,6 +79,8 @@ export const ru = {
     deepDiveDesc: "Фокус на коде с чатом",
     uiLearn: "UI Обучение",
     uiLearnDesc: "Интерактивный обозреватель функций",
+    architect: "Архитектор",
+    architectDesc: "Why-режим: решения, компромиссы и обоснование ADR",
   },
   uiLearn: {
     title: "UI Обучение",

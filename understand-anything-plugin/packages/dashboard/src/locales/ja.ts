@@ -79,6 +79,8 @@ export const ja = {
     deepDiveDesc: "コード中心のチャット",
     uiLearn: "UI 学習",
     uiLearnDesc: "インタラクティブな機能ポイントエクスプローラ",
+    architect: "アーキテクト",
+    architectDesc: "Why モード: 決定、トレードオフ、ADR 根拠を表示",
   },
   uiLearn: {
     title: "UI 学習",

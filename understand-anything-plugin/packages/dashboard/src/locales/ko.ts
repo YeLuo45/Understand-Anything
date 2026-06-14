@@ -79,6 +79,8 @@ export const ko = {
     deepDiveDesc: "코드 중심 채팅",
     uiLearn: "UI 학습",
     uiLearnDesc: "대화형 기능 포인트 탐색기",
+    architect: "아키텍트",
+    architectDesc: "Why 모드: 결정, 트레이드오프, ADR 근거 보기",
   },
   uiLearn: {
     title: "UI 학습",

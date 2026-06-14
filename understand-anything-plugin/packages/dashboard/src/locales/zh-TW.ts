@@ -79,6 +79,8 @@ export const zhTW = {
     deepDiveDesc: "程式碼聚焦與對話",
     uiLearn: "UI 學習",
     uiLearnDesc: "互動式功能點瀏覽器",
+    architect: "架構師",
+    architectDesc: "Why 模式: 查看決策、權衡、ADR 原理",
   },
   uiLearn: {
     title: "UI 學習",

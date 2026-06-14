@@ -9,7 +9,7 @@ import type {
 } from "@understand-anything/core/types";
 import type { ReactFlowInstance } from "@xyflow/react";
 
-export type Persona = "non-technical" | "junior" | "experienced" | "uiLearn";
+export type Persona = "non-technical" | "junior" | "experienced" | "uiLearn" | "architect";
 export type NavigationLevel = "overview" | "layer-detail";
 export type NodeType = "file" | "function" | "class" | "module" | "concept" | "config" | "document" | "service" | "table" | "endpoint" | "pipeline" | "schema" | "resource" | "domain" | "flow" | "step" | "article" | "entity" | "topic" | "claim" | "source";
 export type Complexity = "simple" | "moderate" | "complex";

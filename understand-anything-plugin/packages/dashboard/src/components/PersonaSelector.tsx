@@ -28,6 +28,11 @@ export default function PersonaSelector() {
       label: t.personaSelector.uiLearn,
       description: t.personaSelector.uiLearnDesc,
     },
+    {
+      id: "architect",
+      label: t.personaSelector.architect,
+      description: t.personaSelector.architectDesc,
+    },
   ];
 
   return (
