@@ -112,11 +112,11 @@ export default function WhyView() {
         </div>
       </header>
 
-      <div className="flex-1 min-h-0 flex">
-        <aside className="w-[280px] shrink-0 border-r border-border-subtle">
+      <div className="flex-1 min-h-0 flex flex-col md:flex-row">
+        <aside className="w-full md:w-[280px] shrink-0 border-b md:border-b-0 md:border-r border-border-subtle max-h-[40vh] md:max-h-none overflow-auto">
           <DecisionList />
         </aside>
-        <main className="flex-1 min-w-0 overflow-auto">
+        <main className="flex-1 min-w-0 min-h-0 overflow-auto">
           {selectedDecision ? (
             <div className="divide-y divide-border-subtle">
               <DecisionDetailPanel />

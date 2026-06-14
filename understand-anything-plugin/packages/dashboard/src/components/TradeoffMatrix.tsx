@@ -49,10 +49,7 @@ export default function TradeoffMatrix({
   const cons = Array.from(new Set(rows.flatMap((r) => r.cons)));
 
   return (
-    <div
-      className="text-xs overflow-auto p-3"
-      data-testid="why-tradeoff-matrix"
-    >
+    <div className="text-xs overflow-x-auto p-2 md:p-3" data-testid="why-tradeoff-matrix">
       <h3 className="text-[10px] uppercase tracking-wider text-text-muted mb-2">
         Tradeoff matrix
       </h3>

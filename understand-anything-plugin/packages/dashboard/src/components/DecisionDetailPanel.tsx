@@ -19,7 +19,7 @@ export default function DecisionDetailPanel() {
 
   return (
     <article
-      className="max-w-2xl space-y-3 p-4"
+      className="max-w-2xl space-y-3 p-3 md:p-4"
       data-testid="why-decision-detail"
     >
       <h1 className="text-lg font-heading">{decision.title}</h1>

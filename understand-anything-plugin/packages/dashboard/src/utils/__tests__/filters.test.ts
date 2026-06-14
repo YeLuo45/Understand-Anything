@@ -42,6 +42,7 @@ function defaultFilters(overrides: Partial<FilterState> = {}): FilterState {
     complexities: new Set<Complexity>(ALL_COMPLEXITIES),
     layerIds: new Set<string>(),
     edgeCategories: new Set<EdgeCategory>(ALL_EDGE_CATEGORIES),
+    onlyNodesWithDecisions: false,
     ...overrides,
   };
 }

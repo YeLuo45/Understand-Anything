@@ -69,7 +69,10 @@ export default function DecisionList() {
           {filtered.length} / {decisions.length} decisions
         </div>
       </div>
-      <ul className="flex-1 overflow-auto p-2 space-y-1" data-testid="why-list">
+      <ul
+        className="flex-1 overflow-y-auto md:overflow-auto p-2 space-y-1 max-h-[50vh] md:max-h-none"
+        data-testid="why-list"
+      >
         {filtered.length === 0 && (
           <li className="text-[10px] text-text-muted italic p-2">
             No decisions match the current filter.

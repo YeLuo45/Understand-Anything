@@ -22,6 +22,9 @@ export interface FilterState {
   complexities: Set<Complexity>;
   layerIds: Set<string>;
   edgeCategories: Set<EdgeCategory>;
+  // V22 — Direction A: when true, only show nodes referenced by at least
+  // one decision. Default false (no impact on the original behaviour).
+  onlyNodesWithDecisions: boolean;
 }
 
 export const ALL_NODE_TYPES: NodeType[] = ["file", "function", "class", "module", "concept", "config", "document", "service", "table", "endpoint", "pipeline", "schema", "resource", "domain", "flow", "step", "article", "entity", "topic", "claim", "source"];
@@ -46,6 +49,7 @@ const DEFAULT_FILTERS: FilterState = {
   complexities: new Set<Complexity>(ALL_COMPLEXITIES),
   layerIds: new Set<string>(),
   edgeCategories: new Set<EdgeCategory>(ALL_EDGE_CATEGORIES),
+  onlyNodesWithDecisions: false,
 };
 
 /** Categories used for node type filter toggles. Single source of truth for NodeCategory. */
@@ -189,6 +193,8 @@ interface DashboardStore {
   togglePathFinder: () => void;
   setReactFlowInstance: (instance: ReactFlowInstance | null) => void;
   setFilters: (filters: Partial<FilterState>) => void;
+  // V22 — Direction A: toggle "only nodes with decisions" filter
+  toggleOnlyNodesWithDecisions: () => void;
   resetFilters: () => void;
   hasActiveFilters: () => boolean;
 
@@ -626,18 +632,30 @@ export const useDashboardStore = create<DashboardStore>()((set, get) => ({
 
   setReactFlowInstance: (instance) => set({ reactFlowInstance: instance }),
 
-  setFilters: (newFilters) => set((state) => ({
-    filters: { ...state.filters, ...newFilters },
-  })),
+  setFilters: (newFilters) =>
+    set((state) => ({
+      filters: { ...state.filters, ...newFilters },
+    })),
 
-  resetFilters: () => set({
-    filters: {
-      nodeTypes: new Set<NodeType>(ALL_NODE_TYPES),
-      complexities: new Set<Complexity>(ALL_COMPLEXITIES),
-      layerIds: new Set<string>(),
-      edgeCategories: new Set<EdgeCategory>(ALL_EDGE_CATEGORIES),
-    },
-  }),
+  // V22 — Direction A: toggle "only nodes with decisions" filter
+  toggleOnlyNodesWithDecisions: () =>
+    set((state) => ({
+      filters: {
+        ...state.filters,
+        onlyNodesWithDecisions: !state.filters.onlyNodesWithDecisions,
+      },
+    })),
+
+  resetFilters: () =>
+    set({
+      filters: {
+        nodeTypes: new Set<NodeType>(ALL_NODE_TYPES),
+        complexities: new Set<Complexity>(ALL_COMPLEXITIES),
+        layerIds: new Set<string>(),
+        edgeCategories: new Set<EdgeCategory>(ALL_EDGE_CATEGORIES),
+        onlyNodesWithDecisions: false,
+      },
+    }),
 
   hasActiveFilters: () => {
     const { filters } = get();

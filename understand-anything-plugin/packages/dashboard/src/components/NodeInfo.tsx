@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDashboardStore } from "../store";
 import { useI18n } from "../contexts/I18nContext";
+import NodeWhyPanel from "./NodeWhyPanel";
 import type { NodeType, EdgeType, KnowledgeGraph, GraphNode } from "@understand-anything/core/types";
 
 // Badge color classes keyed by NodeType — must be kept in sync with core NodeType union.
@@ -534,6 +535,11 @@ export default function NodeInfo() {
           </div>
         </div>
       )}
+
+      {/* V21 — Why this code? (Direction A architect persona hook) */}
+      <div className="mt-4 border-t border-border-subtle pt-3">
+        <NodeWhyPanel nodeId={node.id} />
+      </div>
     </div>
   );
 }

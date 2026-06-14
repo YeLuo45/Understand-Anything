@@ -60,7 +60,7 @@ export default function DecisionTimeline() {
   }
 
   return (
-    <div className="p-3 space-y-3" data-testid="why-timeline">
+    <div className="p-2 md:p-3 space-y-3" data-testid="why-timeline">
       <h3 className="text-[10px] uppercase tracking-wider text-text-muted">
         Decision timeline ({milestones.length} months)
       </h3>

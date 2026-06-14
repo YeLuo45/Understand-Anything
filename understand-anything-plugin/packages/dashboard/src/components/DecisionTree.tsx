@@ -19,7 +19,7 @@ export default function DecisionTree({
   const supersedes = all.filter((d) => d.supersededBy === decision.id);
 
   return (
-    <div className="text-xs p-3 space-y-2" data-testid="why-decision-tree">
+    <div className="text-xs p-2 md:p-3 space-y-2" data-testid="why-decision-tree">
       <h3 className="text-[10px] uppercase tracking-wider text-text-muted">
         Decision tree
       </h3>

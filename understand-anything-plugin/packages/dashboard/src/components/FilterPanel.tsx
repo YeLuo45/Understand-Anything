@@ -11,6 +11,14 @@ export default function FilterPanel() {
   const hasActiveFilters = useDashboardStore((s) => s.hasActiveFilters);
   const filterPanelOpen = useDashboardStore((s) => s.filterPanelOpen);
   const toggleFilterPanel = useDashboardStore((s) => s.toggleFilterPanel);
+  const decisionGraph = useDashboardStore((s) => s.decisionGraph);
+  // V22 — Direction A "Decision history" filter (experienced persona)
+  const onlyNodesWithDecisions = useDashboardStore(
+    (s) => s.filters.onlyNodesWithDecisions,
+  );
+  const toggleOnlyNodesWithDecisions = useDashboardStore(
+    (s) => s.toggleOnlyNodesWithDecisions,
+  );
   const { t } = useI18n();
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -126,6 +134,27 @@ export default function FilterPanel() {
                   </label>
                 ))}
               </div>
+            </div>
+
+            {/* V22 — Decision history filter (Direction A) */}
+            <div className="pt-2 border-t border-border-subtle">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={onlyNodesWithDecisions}
+                  onChange={toggleOnlyNodesWithDecisions}
+                  className="w-3.5 h-3.5 rounded border-border-subtle bg-elevated checked:bg-gold checked:border-gold focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                  data-testid="filter-only-nodes-with-decisions"
+                />
+                <span className="text-sm text-text-primary">
+                  Only nodes with decisions
+                </span>
+              </label>
+              <p className="text-[10px] text-text-muted mt-1 pl-5">
+                {decisionGraph
+                  ? `${decisionGraph.decisions.length} decision${decisionGraph.decisions.length === 1 ? "" : "s"} loaded`
+                  : "No decisions loaded yet"}
+              </p>
             </div>
 
             {/* Complexity */}
