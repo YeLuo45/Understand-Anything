@@ -9,6 +9,7 @@
  */
 import { describe, it, expect, beforeEach } from "vitest";
 import { useDashboardStore } from "../store";
+import type { ADRGraph, ArchitectureDecisionRecord } from "@understand-anything/core/types";
 
 function resetStore() {
   useDashboardStore.setState({
@@ -19,7 +20,7 @@ function resetStore() {
   });
 }
 
-const sampleDecision = {
+const sampleDecision: ArchitectureDecisionRecord = {
   id: "adr:0001",
   title: "Adopt Zod for runtime validation",
   status: "accepted",
@@ -37,7 +38,7 @@ const sampleDecision = {
   tradeoffScore: 0.7,
 };
 
-const secondDecision = {
+const secondDecision: ArchitectureDecisionRecord = {
   ...sampleDecision,
   id: "adr:0002",
   title: "Use Vite for dev server",
@@ -57,7 +58,7 @@ describe("store — decision graph slice (V4)", () => {
   });
 
   it("setDecisionGraph assigns the graph", () => {
-    const graph = {
+    const graph: ADRGraph = {
       version: "1.0",
       project: { name: "demo", analyzedAt: "2026-06-14T00:00:00Z", gitCommitHash: "x" },
       decisions: [sampleDecision],
@@ -89,7 +90,7 @@ describe("store — decision graph slice (V4)", () => {
 describe("store — decision graph filtering helpers (consumer logic)", () => {
   beforeEach(resetStore);
 
-  const graph = {
+  const graph: ADRGraph = {
     version: "1.0",
     project: { name: "demo", analyzedAt: "2026-06-14T00:00:00Z", gitCommitHash: "x" },
     decisions: [sampleDecision, secondDecision],
@@ -122,13 +123,14 @@ describe("store — decision graph filtering helpers (consumer logic)", () => {
   });
 
   it("tradeoffScore sort descending puts higher score first", () => {
-    useDashboardStore.getState().setDecisionGraph({
+    const graphWithScores: ADRGraph = {
       ...graph,
       decisions: [
         { ...sampleDecision, tradeoffScore: 0.3 },
         { ...secondDecision, tradeoffScore: 0.9 },
       ],
-    });
+    };
+    useDashboardStore.getState().setDecisionGraph(graphWithScores);
     const all = useDashboardStore.getState().decisionGraph!.decisions;
     const sorted = [...all].sort(
       (a, b) => (b.tradeoffScore ?? 0) - (a.tradeoffScore ?? 0),

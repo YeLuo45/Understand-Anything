@@ -169,60 +169,8 @@ interface DashboardStore {
   closeCodeViewer: () => void;
 
   // Decision graph (Direction A "Why" persona) — V4
-  decisionGraph: {
-    version: string;
-    project: { name: string; analyzedAt: string; gitCommitHash: string };
-    decisions: Array<{
-      id: string;
-      title: string;
-      status: string;
-      context: string;
-      decision: string;
-      consequences: { positive: string[]; negative: string[] };
-      alternatives: Array<{
-        name: string;
-        whyRejected: string;
-        pros: string[];
-        cons: string[];
-      }>;
-      date: string;
-      authorCommit?: string;
-      source: string;
-      tags: string[];
-      linkedNodeIds: string[];
-      supersededBy?: string;
-      complexity: string;
-      tradeoffScore?: number;
-    }>;
-  } | null;
-  setDecisionGraph: (
-    graph: {
-      version: string;
-      project: { name: string; analyzedAt: string; gitCommitHash: string };
-      decisions: Array<{
-        id: string;
-        title: string;
-        status: string;
-        context: string;
-        decision: string;
-        consequences: { positive: string[]; negative: string[] };
-        alternatives: Array<{
-          name: string;
-          whyRejected: string;
-          pros: string[];
-          cons: string[];
-        }>;
-        date: string;
-        authorCommit?: string;
-        source: string;
-        tags: string[];
-        linkedNodeIds: string[];
-        supersededBy?: string;
-        complexity: string;
-        tradeoffScore?: number;
-      }>;
-    } | null,
-  ) => void;
+  decisionGraph: import("@understand-anything/core/types").ADRGraph | null;
+  setDecisionGraph: (graph: import("@understand-anything/core/types").ADRGraph | null) => void;
   selectedDecisionId: string | null;
   selectDecision: (decisionId: string | null) => void;
   decisionSearchQuery: string;
