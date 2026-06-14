@@ -135,3 +135,29 @@ export {
   validateADR,
   validateADRGraph,
 } from "./schema.js";
+
+// Decision extraction pipeline (Direction A — V6/V7/V8/V9)
+export {
+  matchRationaleKeywords,
+  parseGitLogOutput,
+  scanGitLog,
+  type DecisionCandidate,
+  type ScanGitLogOptions,
+} from "./analyzer/git-decision-scanner.js";
+export {
+  extractCommentCandidates,
+  scanCodeComments,
+  type ScanCodeCommentsOptions,
+} from "./analyzer/comment-decision-scanner.js";
+export {
+  candidateToADR,
+  extractDecisions,
+  type ExtractDecisionsOptions,
+} from "./analyzer/decision-extractor.js";
+export {
+  buildSummarizePrompt,
+  parseSummarizeResponse,
+  mergeSummarize,
+  type LLMSummarizeInput,
+  type LLMSummarizeOutput,
+} from "./analyzer/llm-decision-summarizer.js";
