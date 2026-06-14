@@ -167,6 +167,68 @@ interface DashboardStore {
   setPersona: (persona: Persona) => void;
   openCodeViewer: (nodeId: string) => void;
   closeCodeViewer: () => void;
+
+  // Decision graph (Direction A "Why" persona) — V4
+  decisionGraph: {
+    version: string;
+    project: { name: string; analyzedAt: string; gitCommitHash: string };
+    decisions: Array<{
+      id: string;
+      title: string;
+      status: string;
+      context: string;
+      decision: string;
+      consequences: { positive: string[]; negative: string[] };
+      alternatives: Array<{
+        name: string;
+        whyRejected: string;
+        pros: string[];
+        cons: string[];
+      }>;
+      date: string;
+      authorCommit?: string;
+      source: string;
+      tags: string[];
+      linkedNodeIds: string[];
+      supersededBy?: string;
+      complexity: string;
+      tradeoffScore?: number;
+    }>;
+  } | null;
+  setDecisionGraph: (
+    graph: {
+      version: string;
+      project: { name: string; analyzedAt: string; gitCommitHash: string };
+      decisions: Array<{
+        id: string;
+        title: string;
+        status: string;
+        context: string;
+        decision: string;
+        consequences: { positive: string[]; negative: string[] };
+        alternatives: Array<{
+          name: string;
+          whyRejected: string;
+          pros: string[];
+          cons: string[];
+        }>;
+        date: string;
+        authorCommit?: string;
+        source: string;
+        tags: string[];
+        linkedNodeIds: string[];
+        supersededBy?: string;
+        complexity: string;
+        tradeoffScore?: number;
+      }>;
+    } | null,
+  ) => void;
+  selectedDecisionId: string | null;
+  selectDecision: (decisionId: string | null) => void;
+  decisionSearchQuery: string;
+  setDecisionSearchQuery: (query: string) => void;
+  decisionSourceFilter: string; // "" = all, or "git-commit"/"code-comment"/"llm-inferred"/"manual"
+  setDecisionSourceFilter: (source: string) => void;
   expandCodeViewer: () => void;
   collapseCodeViewer: () => void;
 
@@ -573,6 +635,16 @@ export const useDashboardStore = create<DashboardStore>()((set, get) => ({
     set({ codeViewerOpen: false, codeViewerNodeId: null, codeViewerExpanded: false }),
   expandCodeViewer: () => set({ codeViewerExpanded: true }),
   collapseCodeViewer: () => set({ codeViewerExpanded: false }),
+
+  // Decision graph (Direction A "Why" persona) — V4
+  decisionGraph: null,
+  setDecisionGraph: (graph) => set({ decisionGraph: graph }),
+  selectedDecisionId: null,
+  selectDecision: (decisionId) => set({ selectedDecisionId: decisionId }),
+  decisionSearchQuery: "",
+  setDecisionSearchQuery: (q) => set({ decisionSearchQuery: q }),
+  decisionSourceFilter: "",
+  setDecisionSourceFilter: (source) => set({ decisionSourceFilter: source }),
 
   setDiffOverlay: (changed, affected) =>
     set({

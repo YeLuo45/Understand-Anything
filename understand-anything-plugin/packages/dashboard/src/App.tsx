@@ -29,6 +29,7 @@ import { I18nProvider, useI18n } from "./contexts/I18nContext.tsx";
 const CodeViewer = lazy(() => import("./components/CodeViewer"));
 const LearnPanel = lazy(() => import("./components/LearnPanel"));
 const UILearnView = lazy(() => import("./components/UILearnView"));
+const WhyView = lazy(() => import("./components/WhyView")); // V5 — Architect persona
 const PathFinderModal = lazy(() => import("./components/PathFinderModal"));
 const KeyboardShortcutsHelp = lazy(
   () => import("./components/KeyboardShortcutsHelp"),
@@ -644,6 +645,10 @@ function DashboardContent({
           {persona === "uiLearn" ? (
             <Suspense fallback={null}>
               <UILearnView />
+            </Suspense>
+          ) : persona === "architect" ? (
+            <Suspense fallback={null}>
+              <WhyView />
             </Suspense>
           ) : viewMode === "knowledge" ? (
             <KnowledgeGraphView />
