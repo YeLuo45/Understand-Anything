@@ -444,6 +444,113 @@ export interface ValidationResult {
   fatal?: string;
 }
 
+// =============================================================================
+// Architecture Decision Record (ADR) Zod Schemas — V1 Direction A
+// =============================================================================
+
+export const ADRStatusSchema = z.enum([
+  "proposed",
+  "accepted",
+  "deprecated",
+  "superseded",
+]);
+
+export const ADRSourceSchema = z.enum([
+  "git-commit",
+  "code-comment",
+  "llm-inferred",
+  "manual",
+]);
+
+export const ADRComplexitySchema = z.enum([
+  "simple",
+  "moderate",
+  "complex",
+]);
+
+export const ADRAlternativeSchema = z.object({
+  name: z.string().min(1),
+  whyRejected: z.string(),
+  pros: z.array(z.string()),
+  cons: z.array(z.string()),
+});
+
+export const ADRConsequencesSchema = z.object({
+  positive: z.array(z.string()),
+  negative: z.array(z.string()),
+});
+
+export const ArchitectureDecisionRecordSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  status: ADRStatusSchema,
+  context: z.string(),
+  decision: z.string().min(1),
+  consequences: ADRConsequencesSchema,
+  alternatives: z.array(ADRAlternativeSchema),
+  date: z.string(),  // ISO 8601
+  authorCommit: z.string().optional(),
+  source: ADRSourceSchema,
+  tags: z.array(z.string()),
+  linkedNodeIds: z.array(z.string()),
+  supersededBy: z.string().optional(),
+  complexity: ADRComplexitySchema,
+  tradeoffScore: z.number().min(0).max(1).optional(),
+});
+
+export const ADRGraphSchema = z.object({
+  version: z.string(),
+  project: z.object({
+    name: z.string(),
+    analyzedAt: z.string(),
+    gitCommitHash: z.string(),
+  }),
+  decisions: z.array(ArchitectureDecisionRecordSchema),
+});
+
+/**
+ * Validate an ADR (or any unknown value). Returns the same shape as
+ * `validateGraph` so dashboards can render issues uniformly.
+ */
+export function validateADR(data: unknown): ValidationResult {
+  if (typeof data !== "object" || data === null) {
+    const fatal = "Invalid ADR: not an object";
+    return { success: false, issues: [], fatal, errors: [fatal] };
+  }
+  const result = ArchitectureDecisionRecordSchema.safeParse(data);
+  if (result.success) {
+    return { success: true, issues: [], data: result.data as never };
+  }
+  const issues: GraphIssue[] = result.error.issues.map((iss) => ({
+    level: "fatal" as const,
+    category: "invalid-adr",
+    message: `${iss.path.join(".") || "root"}: ${iss.message}`,
+    path: iss.path.join("."),
+  }));
+  return { success: false, issues, fatal: issues[0]?.message };
+}
+
+/**
+ * Validate an entire ADR graph collection. Lenient — drops individual
+ * invalid ADRs with a warning, but still fatal-rejects the whole graph
+ * if the top-level shape is broken or no valid ADRs exist.
+ */
+export function validateADRGraph(data: unknown): Omit<ValidationResult, "data"> & {
+  data?: z.infer<typeof ADRGraphSchema>;
+} {
+  if (typeof data !== "object" || data === null) {
+    const fatal = "Invalid ADR graph: not an object";
+    return { success: false, issues: [], fatal, errors: [fatal] };
+  }
+  const raw = data as Record<string, unknown>;
+  const topResult = ADRGraphSchema.safeParse(raw);
+  if (!topResult.success) {
+    const fatal = "Missing or invalid ADR graph metadata";
+    return { success: false, issues: [], fatal, errors: [fatal] };
+  }
+  return { success: true, issues: [], data: topResult.data };
+}
+
 function buildInvalidCollectionIssue(name: string): GraphIssue {
   return {
     level: "fatal",

@@ -122,3 +122,16 @@ export {
   type IgnoreFilter,
 } from "./ignore-filter.js";
 export { generateStarterIgnoreFile } from "./ignore-generator.js";
+
+// Architecture Decision Record (ADR) — V1 Direction A "Why" persona
+export {
+  ADRStatusSchema,
+  ADRSourceSchema,
+  ADRComplexitySchema,
+  ADRAlternativeSchema,
+  ADRConsequencesSchema,
+  ArchitectureDecisionRecordSchema,
+  ADRGraphSchema,
+  validateADR,
+  validateADRGraph,
+} from "./schema.js";
