@@ -300,7 +300,8 @@ export default defineConfig({
             pathname === "/diff-overlay.json" ||
             pathname === "/meta.json" ||
             pathname === "/config.json" ||
-            pathname === "/file-content.json";
+            pathname === "/file-content.json" ||
+            pathname === "/decisions-graph.json";
 
           if (!isProtectedEndpoint) {
             next();
@@ -335,6 +336,23 @@ export default defineConfig({
               }
             }
             sendJson(res, 200, { autoUpdate: false, outputLanguage: "en" });
+            return;
+          }
+
+          // R2 V28 (preview) — serve the decisions graph from the same
+          // candidate locations. Real wiring arrives in V28 proper.
+          if (pathname === "/decisions-graph.json") {
+            const candidates = graphFileCandidates("decisions-graph.json");
+            for (const candidate of candidates) {
+              if (fs.existsSync(candidate)) {
+                const raw = fs.readFileSync(candidate, "utf-8");
+                res.setHeader("Content-Type", "application/json");
+                res.setHeader("Cache-Control", "no-store, must-revalidate");
+                res.end(raw);
+                return;
+              }
+            }
+            sendJson(res, 404, { error: "decisions-graph.json not found" });
             return;
           }
 
