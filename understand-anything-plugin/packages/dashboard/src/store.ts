@@ -25,6 +25,9 @@ export interface FilterState {
   // V22 — Direction A: when true, only show nodes referenced by at least
   // one decision. Default false (no impact on the original behaviour).
   onlyNodesWithDecisions: boolean;
+  // V14 — Direction A R2: when true, only show stale decisions in the
+  // Why view. Default false.
+  showStaleDecisionsOnly: boolean;
 }
 
 export const ALL_NODE_TYPES: NodeType[] = ["file", "function", "class", "module", "concept", "config", "document", "service", "table", "endpoint", "pipeline", "schema", "resource", "domain", "flow", "step", "article", "entity", "topic", "claim", "source"];
@@ -50,6 +53,7 @@ const DEFAULT_FILTERS: FilterState = {
   layerIds: new Set<string>(),
   edgeCategories: new Set<EdgeCategory>(ALL_EDGE_CATEGORIES),
   onlyNodesWithDecisions: false,
+  showStaleDecisionsOnly: false,
 };
 
 /** Categories used for node type filter toggles. Single source of truth for NodeCategory. */
@@ -195,6 +199,8 @@ interface DashboardStore {
   setFilters: (filters: Partial<FilterState>) => void;
   // V22 — Direction A: toggle "only nodes with decisions" filter
   toggleOnlyNodesWithDecisions: () => void;
+  // V14 — Direction A R2: toggle "show stale decisions only" filter
+  toggleShowStaleDecisionsOnly: () => void;
   resetFilters: () => void;
   hasActiveFilters: () => boolean;
 
@@ -646,6 +652,15 @@ export const useDashboardStore = create<DashboardStore>()((set, get) => ({
       },
     })),
 
+  // V14 — Direction A R2: toggle "show stale decisions only"
+  toggleShowStaleDecisionsOnly: () =>
+    set((state) => ({
+      filters: {
+        ...state.filters,
+        showStaleDecisionsOnly: !state.filters.showStaleDecisionsOnly,
+      },
+    })),
+
   resetFilters: () =>
     set({
       filters: {
@@ -654,6 +669,7 @@ export const useDashboardStore = create<DashboardStore>()((set, get) => ({
         layerIds: new Set<string>(),
         edgeCategories: new Set<EdgeCategory>(ALL_EDGE_CATEGORIES),
         onlyNodesWithDecisions: false,
+        showStaleDecisionsOnly: false,
       },
     }),
 

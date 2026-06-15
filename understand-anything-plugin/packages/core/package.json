@@ -41,6 +41,10 @@
       "types": "./dist/llm/why-story.d.ts",
       "default": "./dist/llm/why-story.js"
     },
+    "./llm/why-impact": {
+      "types": "./dist/llm/why-impact.d.ts",
+      "default": "./dist/llm/why-impact.js"
+    },
     "./languages": {
       "types": "./dist/languages/index.d.ts",
       "default": "./dist/languages/index.js"
