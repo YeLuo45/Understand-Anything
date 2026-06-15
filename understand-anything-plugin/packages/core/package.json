@@ -45,6 +45,18 @@
       "types": "./dist/llm/why-impact.d.ts",
       "default": "./dist/llm/why-impact.js"
     },
+    "./analyzer/archaeology-scanner": {
+      "types": "./dist/analyzer/archaeology-scanner.d.ts",
+      "default": "./dist/analyzer/archaeology-scanner.js"
+    },
+    "./analyzer/archaeology-parser": {
+      "types": "./dist/analyzer/archaeology-parser.d.ts",
+      "default": "./dist/analyzer/archaeology-parser.js"
+    },
+    "./analyzer/archaeology-diff-source": {
+      "types": "./dist/analyzer/archaeology-diff-source.d.ts",
+      "default": "./dist/analyzer/archaeology-diff-source.js"
+    },
     "./languages": {
       "types": "./dist/languages/index.d.ts",
       "default": "./dist/languages/index.js"

@@ -200,3 +200,26 @@ export {
   type StalenessBucket,
   type FileChangeInfo,
 } from "./llm/why-impact.js";
+export {
+  matchADRPrefixes,
+  parseArchaeologyLog,
+  scanGitArchaeology,
+  ADR_PREFIXES,
+  type ArchaeologyCandidate,
+  type ScanArchaeologyOptions,
+} from "./analyzer/archaeology-scanner.js";
+export {
+  splitBodyOnDecision,
+  extractAlternativesFromBody,
+  parseCandidate,
+  parseCandidates,
+} from "./analyzer/archaeology-parser.js";
+export {
+  inferLayersFromPaths,
+  pathsToNodeIds,
+  parseNumstat,
+  augmentWithDiff,
+  enrichWithGitNumstat,
+  type ArchaeologyCandidateWithDiff,
+  type EnrichOptions,
+} from "./analyzer/archaeology-diff-source.js";
