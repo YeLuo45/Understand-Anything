@@ -223,3 +223,14 @@ export {
   type ArchaeologyCandidateWithDiff,
   type EnrichOptions,
 } from "./analyzer/archaeology-diff-source.js";
+export {
+  buildImpactIndex,
+  bfsReachable,
+  impactFromNode,
+  impactFromNodes,
+  severityScore,
+  severityBucket,
+  type ImpactNode,
+  type ImpactEdge,
+  type ImpactedDecision,
+} from "./analyzer/impact-propagation.js";

@@ -57,6 +57,10 @@
       "types": "./dist/analyzer/archaeology-diff-source.d.ts",
       "default": "./dist/analyzer/archaeology-diff-source.js"
     },
+    "./analyzer/impact-propagation": {
+      "types": "./dist/analyzer/impact-propagation.d.ts",
+      "default": "./dist/analyzer/impact-propagation.js"
+    },
     "./languages": {
       "types": "./dist/languages/index.d.ts",
       "default": "./dist/languages/index.js"
