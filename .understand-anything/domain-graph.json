@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "Understand-Anything",
+    "languages": ["typescript", "python", "yaml", "shell"],
+    "frameworks": ["react", "vite", "fastapi", "zod", "zustand"],
+    "description": "R2 demo — domain graph stub.",
+    "analyzedAt": "2026-06-14T14:00:00.000Z",
+    "gitCommitHash": "1d17846f15ebcaed0bc6fcddb21b64bffbe9d20b"
+  },
+  "nodes": [],
+  "edges": [],
+  "layers": [],
+  "tour": []
+}

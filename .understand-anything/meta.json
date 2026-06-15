@@ -1,0 +1,9 @@
+{
+  "theme": {
+    "primary": "#d4a574",
+    "background": "#0f1115",
+    "text": "#e6e6e6"
+  },
+  "outputLanguage": "zh",
+  "notes": "R2 demo metadata — theme uses the Egonex gold + dark palette."
+}

@@ -43,6 +43,7 @@ function defaultFilters(overrides: Partial<FilterState> = {}): FilterState {
     layerIds: new Set<string>(),
     edgeCategories: new Set<EdgeCategory>(ALL_EDGE_CATEGORIES),
     onlyNodesWithDecisions: false,
+    showStaleDecisionsOnly: false,
     ...overrides,
   };
 }

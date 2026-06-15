@@ -1,0 +1,125 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "Understand-Anything",
+    "languages": ["typescript", "python", "yaml", "shell"],
+    "frameworks": ["react", "vite", "fastapi", "zod", "zustand"],
+    "description": "Egonex-AI/Understand-Anything — a Claude Code plugin that turns any codebase into an interactive knowledge graph. R2 (Direction A Why-deep) added LLM client + Why Story + Why Impact on top of R1's How/What persona stack.",
+    "analyzedAt": "2026-06-14T14:00:00.000Z",
+    "gitCommitHash": "1d17846f15ebcaed0bc6fcddb21b64bffbe9d20b"
+  },
+  "nodes": [
+    {
+      "id": "file:understand-anything-plugin/packages/dashboard/src/components/WhyView.tsx",
+      "type": "file",
+      "name": "WhyView.tsx",
+      "summary": "Direction A — 5th persona's main view (R1 V3). R2 added the Stale Decisions banner via the why-impact module.",
+      "tags": ["dashboard", "why", "persona-architect"],
+      "complexity": "moderate",
+      "filePath": "understand-anything-plugin/packages/dashboard/src/components/WhyView.tsx"
+    },
+    {
+      "id": "file:understand-anything-plugin/packages/core/src/llm/llm-client.ts",
+      "type": "file",
+      "name": "llm-client.ts",
+      "summary": "R2 V1 — LLMProvider abstraction + retry + Zod-driven structured output. Zero runtime deps; works in browser and Node 20+.",
+      "tags": ["core", "llm", "direction-a-r2"],
+      "complexity": "moderate",
+      "filePath": "understand-anything-plugin/packages/core/src/llm/llm-client.ts"
+    },
+    {
+      "id": "file:understand-anything-plugin/packages/core/src/llm/why-story.ts",
+      "type": "file",
+      "name": "why-story.ts",
+      "summary": "R2 V6-V8 — Why Story generator with FNV-1a cache key, Zod-validated JSON, and stub fallback. Stores the story inside the ADR via a __story: tag token (no schema change).",
+      "tags": ["core", "llm", "direction-a-r2", "why-story"],
+      "complexity": "moderate",
+      "filePath": "understand-anything-plugin/packages/core/src/llm/why-story.ts"
+    },
+    {
+      "id": "file:understand-anything-plugin/packages/core/src/llm/why-impact.ts",
+      "type": "file",
+      "name": "why-impact.ts",
+      "summary": "R2 V11-V12 — staleness scoring for ADRs (drift = file modified after decision date, normalised 0..1, bucketed fresh/aging/stale/ancient).",
+      "tags": ["core", "llm", "direction-a-r2", "why-impact"],
+      "complexity": "moderate",
+      "filePath": "understand-anything-plugin/packages/core/src/llm/why-impact.ts"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:understand-anything-plugin/packages/dashboard/src/components/WhyView.tsx",
+      "target": "file:understand-anything-plugin/packages/core/src/llm/why-story.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:understand-anything-plugin/packages/dashboard/src/components/WhyView.tsx",
+      "target": "file:understand-anything-plugin/packages/core/src/llm/why-impact.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:understand-anything-plugin/packages/core/src/llm/why-story.ts",
+      "target": "file:understand-anything-plugin/packages/core/src/llm/llm-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:understand-anything-plugin/packages/core/src/llm/why-impact.ts",
+      "target": "file:understand-anything-plugin/packages/core/src/llm/llm-client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.4
+    }
+  ],
+  "layers": [
+    {
+      "id": "core",
+      "name": "Core",
+      "description": "L2 — analysis engine (R1 fingerprint, LLM, ADR).",
+      "nodeIds": [
+        "file:understand-anything-plugin/packages/core/src/llm/llm-client.ts",
+        "file:understand-anything-plugin/packages/core/src/llm/why-story.ts",
+        "file:understand-anything-plugin/packages/core/src/llm/why-impact.ts"
+      ]
+    },
+    {
+      "id": "dashboard",
+      "name": "Dashboard",
+      "description": "L7 — UI views (graph, persona switcher, why view, etc).",
+      "nodeIds": [
+        "file:understand-anything-plugin/packages/dashboard/src/components/WhyView.tsx"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "The WhyView",
+      "description": "Direction A's 5th persona lives here. Pick a decision on the left to read context, tradeoffs, and rejected alternatives. R2 added the LLM-generated Why Story above the meta block.",
+      "nodeIds": ["file:understand-anything-plugin/packages/dashboard/src/components/WhyView.tsx"]
+    },
+    {
+      "order": 2,
+      "title": "The LLM client",
+      "description": "R2 V1: a tiny dependency-free LLMProvider interface. Anthropic, OpenAI, and Ollama are first-class providers; Zod-shaped structured output is built in.",
+      "nodeIds": ["file:understand-anything-plugin/packages/core/src/llm/llm-client.ts"]
+    },
+    {
+      "order": 3,
+      "title": "The Why Story pipeline",
+      "description": "R2 V6-V10: turn an ADR into a 1-paragraph plain-English retelling with 3 takeaways. Cached per (decision, language) via FNV-1a. Story is embedded into the ADR's tags as a __story: token, so it round-trips without a schema change.",
+      "nodeIds": ["file:understand-anything-plugin/packages/core/src/llm/why-story.ts"]
+    },
+    {
+      "order": 4,
+      "title": "The Why Impact scorer",
+      "description": "R2 V11-V14: compute a 0..1 staleness score per ADR based on whether the files it references have been modified since the decision was made. UI: NodeInfo banner + FilterPanel toggle.",
+      "nodeIds": ["file:understand-anything-plugin/packages/core/src/llm/why-impact.ts"]
+    }
+  ]
+}

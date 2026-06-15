@@ -1,0 +1,78 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "Understand-Anything",
+    "analyzedAt": "2026-06-14T14:00:32.283Z",
+    "gitCommitHash": "1d17846f15ebcaed0bc6fcddb21b64bffbe9d20b"
+  },
+  "decisions": [
+    {
+      "id": "adr:b4e69a8a:000",
+      "title": "TODO: JSON Schema files have no unique extension — *.schema.json files will match",
+      "status": "accepted",
+      "context": "",
+      "decision": "TODO: JSON Schema files have no unique extension — *.schema.json files will match",
+      "consequences": {
+        "positive": [],
+        "negative": []
+      },
+      "alternatives": [],
+      "date": "2026-06-14T14:00:32.303Z",
+      "source": "code-comment",
+      "tags": [
+        "todo"
+      ],
+      "linkedNodeIds": [
+        "file:understand-anything-plugin/packages/core/src/languages/configs/json-schema.ts"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "adr:fa5cc665:001",
+      "title": "TODO: Kubernetes manifests are YAML files with no unique extension or filename.",
+      "status": "accepted",
+      "context": "",
+      "decision": "TODO: Kubernetes manifests are YAML files with no unique extension or filename.",
+      "consequences": {
+        "positive": [],
+        "negative": []
+      },
+      "alternatives": [],
+      "date": "2026-06-14T14:00:32.303Z",
+      "source": "code-comment",
+      "tags": [
+        "todo"
+      ],
+      "linkedNodeIds": [
+        "file:understand-anything-plugin/packages/core/src/languages/configs/kubernetes.ts"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "adr:a7c4d163:002",
+      "title": "feat(dashboard): V2/30 Direction A — 5th persona 'architect' (Why mode) + i18n (6 locales)",
+      "status": "accepted",
+      "context": "",
+      "decision": "feat(dashboard): V2/30 Direction A — 5th persona 'architect' (Why mode) + i18n (6 locales)",
+      "consequences": {
+        "positive": [],
+        "negative": []
+      },
+      "alternatives": [],
+      "date": "2026-06-14T21:02:47+08:00",
+      "authorCommit": "\n\nunderstand-anything-plugin/packages/dashboard/src/App.tsx\nunderstand-anything-plugin/packages/dashboard/src/__tests__/decision-graph-slice.test.ts\nunderstand-anything-plugin/packages/dashboard/src/components/WhyView.tsx\nunderstand-anything-plugin/packages/dashboard/src/store.ts\n51160f68d419500facb6a4efb57a191c129e46b4",
+      "source": "git-commit",
+      "tags": [
+        "why"
+      ],
+      "linkedNodeIds": [
+        "file:- Add 'architect' to Persona type union in store.ts",
+        "file:- Add architect + architectDesc to en/zh/zh-TW/ja/ko/ru locales",
+        "file:- Add 5th persona button 'Architect' to PersonaSelector",
+        "file:- 19 locale tests passing (6 locales × 3 checks + 1 union smoke)",
+        "file:Refs: P-20260614-891 (UA-Why V2/30)"
+      ],
+      "complexity": "simple"
+    }
+  ]
+}

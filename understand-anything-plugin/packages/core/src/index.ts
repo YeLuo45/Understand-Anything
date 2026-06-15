@@ -190,3 +190,13 @@ export {
   WhyStorySchema,
   type WhyStory,
 } from "./llm/why-story.js";
+export {
+  scoreStaleness,
+  scoreAllStaleness,
+  filterStale,
+  isStaleScore,
+  stalenessBucketFor,
+  type StalenessScore,
+  type StalenessBucket,
+  type FileChangeInfo,
+} from "./llm/why-impact.js";
