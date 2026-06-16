@@ -266,3 +266,47 @@ export {
   type ForeignMirror,
   type CrossRepoMatch,
 } from "./analyzer/cross-repo-mirror.js";
+
+// Direction C — Recipe system (V1-V20)
+export {
+  RecipeManifestSchema,
+  StepSchema,
+  VariableSchema,
+  StepKindSchema,
+  VariableKindSchema,
+  validateRecipe,
+  recipeId,
+  summarizeRecipe,
+  type RecipeManifest,
+  type Step,
+  type StepKind,
+  type Variable,
+  type VariableKind,
+} from "./recipe/recipe-schema.js";
+export { adrToRecipe, adrsToRecipes } from "./recipe/adr-to-recipe.js";
+export {
+  DEFAULT_DURATION,
+  validateStepCommand,
+  withDefaultDuration,
+  STEP_TEMPLATES,
+} from "./recipe/step-templates.js";
+export {
+  validateVariable,
+  inferKind,
+  interpolate,
+  validateAllVariables,
+} from "./recipe/variables.js";
+export {
+  runRecipe,
+  rollbackRecipe,
+  evaluateWhen,
+  type RecipeRun,
+  type StepRun,
+  type StepStatus,
+  type RunOptions,
+} from "./recipe/executor.js";
+export {
+  RecipeLibrary,
+  type RecipeFilter,
+  type RecipeSort,
+} from "./recipe/recipe-library.js";
