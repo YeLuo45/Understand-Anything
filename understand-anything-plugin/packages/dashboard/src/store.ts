@@ -176,6 +176,19 @@ interface DashboardStore {
   openCodeViewer: (nodeId: string) => void;
   closeCodeViewer: () => void;
 
+  // R2-B V24 — Foreign mirrors (cross-repo) for the CrossRepoBanner
+  foreignMirrors: ReadonlyArray<{
+    project: string;
+    url?: string;
+    entries: ReadonlyArray<{ id: string; title: string; origin: string; decisionHash: string; linkedNodeIds: string[] }>;
+  }>;
+  setForeignMirrors: (
+    mirrors: ReadonlyArray<{
+      project: string;
+      url?: string;
+      entries: ReadonlyArray<{ id: string; title: string; origin: string; decisionHash: string; linkedNodeIds: string[] }>;
+    }>,
+  ) => void;
   // Decision graph (Direction A "Why" persona) — V4
   decisionGraph: import("@understand-anything/core/types").ADRGraph | null;
   setDecisionGraph: (graph: import("@understand-anything/core/types").ADRGraph | null) => void;
@@ -331,6 +344,10 @@ function layerResetIfChanged(
 
 export const useDashboardStore = create<DashboardStore>()((set, get) => ({
   graph: null,
+  // R2-B V24 — Foreign mirrors for cross-repo banner
+  foreignMirrors: [],
+  // Decision graph (Direction A "Why" persona) — V4
+  decisionGraph: null,
   nodesById: new Map<string, GraphNode>(),
   nodeIdToLayerId: new Map<string, string>(),
   nodeIdToLayerIds: new Map<string, Set<string>>(),
@@ -596,8 +613,8 @@ export const useDashboardStore = create<DashboardStore>()((set, get) => ({
   expandCodeViewer: () => set({ codeViewerExpanded: true }),
   collapseCodeViewer: () => set({ codeViewerExpanded: false }),
 
-  // Decision graph (Direction A "Why" persona) — V4
-  decisionGraph: null,
+  // R2-B V24 — Foreign mirrors for cross-repo banner
+  setForeignMirrors: (mirrors) => set({ foreignMirrors: mirrors }),
   setDecisionGraph: (graph) => set({ decisionGraph: graph }),
   selectedDecisionId: null,
   selectDecision: (decisionId) => set({ selectedDecisionId: decisionId }),

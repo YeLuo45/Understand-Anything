@@ -69,6 +69,10 @@
       "types": "./dist/analyzer/mcp-core.d.ts",
       "default": "./dist/analyzer/mcp-core.js"
     },
+    "./analyzer/cross-repo-mirror": {
+      "types": "./dist/analyzer/cross-repo-mirror.d.ts",
+      "default": "./dist/analyzer/cross-repo-mirror.js"
+    },
     "./analyzer/agents-md": {
       "types": "./dist/analyzer/agents-md.d.ts",
       "default": "./dist/analyzer/agents-md.js"

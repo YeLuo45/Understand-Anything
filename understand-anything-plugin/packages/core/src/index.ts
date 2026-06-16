@@ -255,3 +255,14 @@ export {
   writeAgentsMd,
   type AgentsMdOptions,
 } from "./analyzer/agents-md.js";
+export {
+  fnv1a16,
+  buildMirror,
+  resolveCrossRepo,
+  findLocalMatches,
+  findForeignOnly,
+  type DecisionMirrorEntry,
+  type DecisionMirror,
+  type ForeignMirror,
+  type CrossRepoMatch,
+} from "./analyzer/cross-repo-mirror.js";
