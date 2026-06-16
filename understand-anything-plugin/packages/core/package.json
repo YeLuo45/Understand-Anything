@@ -73,6 +73,26 @@
       "types": "./dist/analyzer/cross-repo-mirror.d.ts",
       "default": "./dist/analyzer/cross-repo-mirror.js"
     },
+    "./recipe/recipe-schema": {
+      "types": "./dist/recipe/recipe-schema.d.ts",
+      "default": "./dist/recipe/recipe-schema.js"
+    },
+    "./recipe/adr-to-recipe": {
+      "types": "./dist/recipe/adr-to-recipe.d.ts",
+      "default": "./dist/recipe/adr-to-recipe.js"
+    },
+    "./recipe/step-templates": {
+      "types": "./dist/recipe/step-templates.d.ts",
+      "default": "./dist/recipe/step-templates.js"
+    },
+    "./recipe/variables": {
+      "types": "./dist/recipe/variables.d.ts",
+      "default": "./dist/recipe/variables.js"
+    },
+    "./recipe/executor": {
+      "types": "./dist/recipe/executor.d.ts",
+      "default": "./dist/recipe/executor.js"
+    },
     "./analyzer/agents-md": {
       "types": "./dist/analyzer/agents-md.d.ts",
       "default": "./dist/analyzer/agents-md.js"

@@ -79,18 +79,20 @@ export interface Step {
   /** Estimated duration in seconds (for ETA / V14 progress bar). */
   estimatedSeconds?: number;
 }
-export const StepSchema = z.object({
-  id: z.string().min(1),
-  kind: StepKindSchema,
-  title: z.string().min(1),
-  description: z.string().optional(),
-  command: z.string().min(1),
-  expectedExitCode: z.number().int().optional().default(0),
-  parallel: z.boolean().optional().default(false),
-  when: z.string().optional(),
-  onFailure: z.lazy(() => StepSchema).optional(),
-  estimatedSeconds: z.number().int().nonnegative().optional(),
-});
+export const StepSchema: z.ZodType<Step> = z.lazy(() =>
+  z.object({
+    id: z.string().min(1),
+    kind: StepKindSchema,
+    title: z.string().min(1),
+    description: z.string().optional(),
+    command: z.string().min(1),
+    expectedExitCode: z.number().int().optional().default(0),
+    parallel: z.boolean().optional().default(false),
+    when: z.string().optional(),
+    onFailure: StepSchema.optional(),
+    estimatedSeconds: z.number().int().nonnegative().optional(),
+  }),
+);
 
 /** V1 — The full Recipe / Procedure manifest. */
 export interface RecipeManifest {
