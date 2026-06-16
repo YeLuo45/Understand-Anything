@@ -89,6 +89,10 @@
       "types": "./dist/recipe/variables.d.ts",
       "default": "./dist/recipe/variables.js"
     },
+    "./recipe/recipe-export": {
+      "types": "./dist/recipe/recipe-export.d.ts",
+      "default": "./dist/recipe/recipe-export.js"
+    },
     "./recipe/recipe-library": {
       "types": "./dist/recipe/recipe-library.d.ts",
       "default": "./dist/recipe/recipe-library.js"
