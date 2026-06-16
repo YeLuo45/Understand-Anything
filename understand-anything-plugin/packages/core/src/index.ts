@@ -234,3 +234,24 @@ export {
   type ImpactEdge,
   type ImpactedDecision,
 } from "./analyzer/impact-propagation.js";
+export {
+  TOOL_DEFS,
+  RESOURCE_DEFS,
+  makeToolHandlers,
+  dispatchToolCall,
+  smokeSession,
+  createDecisionsServer,
+} from "./analyzer/mcp-decisions-server.js";
+export {
+  createServer,
+  McpDecisionsServer,
+  type ServerOptions,
+  type ToolDef,
+  type ResourceDef,
+} from "./analyzer/mcp-core.js";
+export {
+  renderAdrSection,
+  renderAgentsMd,
+  writeAgentsMd,
+  type AgentsMdOptions,
+} from "./analyzer/agents-md.js";

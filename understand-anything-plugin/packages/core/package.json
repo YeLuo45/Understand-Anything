@@ -61,6 +61,18 @@
       "types": "./dist/analyzer/impact-propagation.d.ts",
       "default": "./dist/analyzer/impact-propagation.js"
     },
+    "./analyzer/mcp-decisions-server": {
+      "types": "./dist/analyzer/mcp-decisions-server.d.ts",
+      "default": "./dist/analyzer/mcp-decisions-server.js"
+    },
+    "./analyzer/mcp-core": {
+      "types": "./dist/analyzer/mcp-core.d.ts",
+      "default": "./dist/analyzer/mcp-core.js"
+    },
+    "./analyzer/agents-md": {
+      "types": "./dist/analyzer/agents-md.d.ts",
+      "default": "./dist/analyzer/agents-md.js"
+    },
     "./languages": {
       "types": "./dist/languages/index.d.ts",
       "default": "./dist/languages/index.js"
